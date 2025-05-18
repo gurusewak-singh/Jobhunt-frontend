@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { MapPin, SearchIcon, FilterIcon } from "lucide-react";
 import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import debounce from "lodash.debounce";
 
 const SearchBar = ({ onSearch }) => {
