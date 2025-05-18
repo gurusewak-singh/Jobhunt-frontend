@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: 'https://jobhunt-backend-f4mk43j2f-gurusewak-singhs-projects.vercel.app/api', //http://localhost:8000
 });
 
 // Request interceptor to attach token to every request
