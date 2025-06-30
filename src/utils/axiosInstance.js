@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000/api', // ✅ change if needed
+  baseURL: 'https://jobhunt-backend1.onrender.com/', // ✅ change if needed
 });
 //new changes
 // ✅ STEP 2: Token add karo har request ke sath
