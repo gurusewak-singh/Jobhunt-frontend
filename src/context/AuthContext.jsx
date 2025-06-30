@@ -1,7 +1,6 @@
 // context/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import api from '../utils/axios'; // ✅ custom axios instance
-
+import api from '../utils/axiosInstance.js'; // ✅ Use the correct centralized axios instance
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -20,12 +19,13 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const res = await api.get('/users/me'); // ✅ uses token & baseURL
+        const res = await api.get('/users/me');
         setUser(res.data);
       } catch (err) {
         console.error('Fetch user error:', err);
+        // If the token is invalid, clear it
+        localStorage.removeItem('token');
         setUser(null);
-        localStorage.removeItem('token'); // remove invalid token
       } finally {
         setLoading(false);
       }
@@ -42,15 +42,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = async () => {
-    try {
-      await api.post('/auth/logout'); 
-    } catch (err) {
-      console.error('Logout failed:', err);
-    } finally {
-      setUser(null);
-      localStorage.removeItem('token');
-    }
+  // ✅ CORRECTED LOGOUT FUNCTION
+  const logout = () => {
+    // Logout is a client-side action: clear user state and token.
+    // No API call is needed unless you have a refresh token blacklist on the backend.
+    setUser(null);
+    localStorage.removeItem('token');
   };
 
   return (
@@ -59,5 +56,7 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+// No need for default export if you export AuthProvider directly
 
 export default AuthProvider;
