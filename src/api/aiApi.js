@@ -1,61 +1,79 @@
-import axios from "axios";
+// import axios from "axios";
 
-const API_URL = "http://localhost:8000/api/ai"; // Replace with your backend's base URL if needed
+// const API_URL = "http://localhost:8000/api/ai"; // Replace with your backend's base URL if needed
 
-/**
- * Analyze resume content
- * @param {Object} data - Resume data
- * @returns {Promise} Axios response promise
- */
-export const analyzeResume = (data) => axios.post(`${API_URL}/analyze-resume`, data, getAuthHeaders());
+// /**
+//  * Analyze resume content
+//  * @param {Object} data - Resume data
+//  * @returns {Promise} Axios response promise
+//  */
+// export const analyzeResume = (data) => axios.post(`${API_URL}/analyze-resume`, data, getAuthHeaders());
 
-/**
- * Recommend jobs based on skills
- * @param {Object} data - Skills or other relevant input
- * @returns {Promise} Axios response promise
- */
-export const recommendJobs = (data) => axios.post(`${API_URL}/recommend-jobs`, data, getAuthHeaders());
+// /**
+//  * Recommend jobs based on skills
+//  * @param {Object} data - Skills or other relevant input
+//  * @returns {Promise} Axios response promise
+//  */
+// export const recommendJobs = (data) => axios.post(`${API_URL}/recommend-jobs`, data, getAuthHeaders());
 
-/**
- * Generate a cover letter
- * @param {Object} data - Resume content and job details
- * @returns {Promise} Axios response promise
- */
-export const generateCoverLetter = (data) => axios.post(`${API_URL}/generate-cover-letter`, data, getAuthHeaders());
+// /**
+//  * Generate a cover letter
+//  * @param {Object} data - Resume content and job details
+//  * @returns {Promise} Axios response promise
+//  */
+// export const generateCoverLetter = (data) => axios.post(`${API_URL}/generate-cover-letter`, data, getAuthHeaders());
 
-/**
- * Create a smart job post
- * @param {Object} data - Job description input
- * @returns {Promise} Axios response promise
- */
-export const smartJobPost = (data) => axios.post(`${API_URL}/smart-job-post`, data, getAuthHeaders());
+// /**
+//  * Create a smart job post
+//  * @param {Object} data - Job description input
+//  * @returns {Promise} Axios response promise
+//  */
+// export const smartJobPost = (data) => axios.post(`${API_URL}/smart-job-post`, data, getAuthHeaders());
 
-/**
- * Chat assistant for user queries
- * @param {Object} data - User query
- * @returns {Promise} Axios response promise
- */
-export const chatAssistant = (data) => axios.post(`${API_URL}/chat`, data, getAuthHeaders());
+// /**
+//  * Chat assistant for user queries
+//  * @param {Object} data - User query
+//  * @returns {Promise} Axios response promise
+//  */
+// export const chatAssistant = (data) => axios.post(`${API_URL}/chat`, data, getAuthHeaders());
 
-/**
- * Get authentication headers with Bearer token
- * @returns {Object} Headers with Authorization token
- */
-function getAuthHeaders() {
-  const token = localStorage.getItem("token");
+// /**
+//  * Get authentication headers with Bearer token
+//  * @returns {Object} Headers with Authorization token
+//  */
+// function getAuthHeaders() {
+//   const token = localStorage.getItem("token");
 
-  // Log the token to debug potential issues
-  // console.log("Stored Token:", token);
+//   // Log the token to debug potential issues
+//   // console.log("Stored Token:", token);
 
-  if (!token) {
-    // Alert user and redirect to login if token is missing
-    alert("You are not authenticated. Redirecting to login.");
-    window.location.href = "/login";
-    return {};
-  }
+//   if (!token) {
+//     // Alert user and redirect to login if token is missing
+//     alert("You are not authenticated. Redirecting to login.");
+//     window.location.href = "/login";
+//     return {};
+//   }
 
-  const headers = { Authorization: `Bearer ${token}` };
-  console.log("Authorization Headers:", headers);
+//   const headers = { Authorization: `Bearer ${token}` };
+//   console.log("Authorization Headers:", headers);
 
-  return { headers };
-}
+//   return { headers };
+// }
+
+// src/api/aiApi.js
+import api from "../utils/axiosInstance.js"; // Use the centralized instance
+
+// Analyze resume content
+export const analyzeResume = (data) => api.post(`/ai/analyze-resume`, data);
+
+// Recommend jobs based on skills
+export const recommendJobs = (data) => api.post(`/ai/recommend-jobs`, data);
+
+// Generate a cover letter
+export const generateCoverLetter = (data) => api.post(`/ai/generate-cover-letter`, data);
+
+// Chat assistant for user queries
+export const chatAssistant = (data) => api.post(`/ai/chat`, data);
+
+// Note: smartJobPost is not defined on your backend, but we'll leave the function here.
+export const smartJobPost = (data) => api.post(`/ai/smart-job-post`, data);
